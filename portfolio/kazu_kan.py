@@ -6,14 +6,14 @@ from tkinter import ttk, messagebox
 class GuessApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("数字当てゲーム（tkinter版）")
+        self.root.title("数字当て")
         self.root.resizable(False, False)
 
         self.answer = None
         self.max_n = None
         self.trycount = 0
 
-        # ===== 難易度エリア =====
+        # ===== 難易度 =====
         frm_top = ttk.LabelFrame(root, text="難易度を選べ（数値を入れて開始）")
         frm_top.grid(row=0, column=0, padx=12, pady=12, sticky="ew")
 
@@ -42,7 +42,7 @@ class GuessApp:
             row=1, column=7, padx=(8, 0)
         )
 
-        # ===== プレイエリア =====
+        # ===== ゲーム =====
         frm_play = ttk.LabelFrame(root, text="勝負")
         frm_play.grid(row=1, column=0, padx=12, pady=(0, 12), sticky="ew")
 
@@ -87,10 +87,10 @@ class GuessApp:
         elif mode_int == 4:
             return 1000
         elif mode_int == 0:
-            self.lbl_feedback.config(text="ん？びびってんのｗ 鬼畜コース決定ｗ")
+            self.lbl_feedback.config(text="ん？びびってんのw 鬼畜コース決定w")
             return 9999
         elif mode_int <= 10:
-            self.lbl_feedback.config(text="あーえらんじゃったかｗ（×500発動）")
+            self.lbl_feedback.config(text="あーえらんじゃったかw（×500発動）")
             return mode_int * 500
         else:
             raise ValueError("なめてんの？")
@@ -110,7 +110,7 @@ class GuessApp:
 
         self.answer = random.randint(1, self.max_n)
         self.trycount = 0
-        self.lbl_range.config(text=f"1 〜 {self.max_n} のどれかだ。かかってこい。")
+        self.lbl_range.config(text=f"1 〜 {self.max_n} のどれか。かかってこい。")
         self.lbl_feedback.config(text="―")
         self.lbl_tries.config(text="回数: 0")
         self.ent_guess.config(state="normal")
@@ -124,11 +124,11 @@ class GuessApp:
         try:
             g = int(self.var_guess.get())
         except ValueError:
-            self.lbl_feedback.config(text="数字入れろや")
+            self.lbl_feedback.config(text="なんで数字ちゃうん")
             return
 
         if not (1 <= g <= self.max_n):
-            self.lbl_feedback.config(text=f"範囲外。1〜{self.max_n} だぞ")
+            self.lbl_feedback.config(text=f"範囲外。1〜{self.max_n} やぞ")
             return
 
         self.trycount += 1
@@ -165,10 +165,11 @@ class GuessApp:
 if __name__ == "__main__":
     root = tk.Tk()
     style = ttk.Style()
-    # 見た目ちょい整える（プラットフォーム依存で無視されてもOK）
+    # 見た目を少し整える（プラットフォーム依存で無視されてもOK）
     try:
         style.theme_use("clam")
     except tk.TclError:
         pass
     app = GuessApp(root)
     root.mainloop()
+
